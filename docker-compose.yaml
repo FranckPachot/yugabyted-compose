@@ -14,3 +14,14 @@ services:
    - "9000-9009:9000"
    - "5430-5439:5433"
    - "15430-15439:15433"
+ psql:
+  image: postgres
+  environment:
+    - PGUSER=yugabyte
+    - PGPASSWORD=yugabyte
+    - PGDATABASE=yugabyte
+  command: psql -h ${COMPOSE_PROJECT_NAME}-yb-1 -p 5433 -c " select * from yb_servers() "
+  depends_on:
+   yb:
+    condition: service_healthy
+
