@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 5s
+scrape_configs:
+  - job_name: 'yugabytedb'
+    metrics_path: /prometheus-metrics
+    static_configs:
+      # would be nice to generate that for all existing yb nodes
+      - targets: ['yugabyted-compose-yb-1:7000', 'yugabyted-compose-yb-1:9000','yugabyted-compose-yb-2:7000', 'yugabyted-compose-yb-2:9000','yugabyted-compose-yb-3:7000', 'yugabyted-compose-yb-3:9000']
