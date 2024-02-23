@@ -1,0 +1,16 @@
+services:
+ yb:
+   build: .
+   environment:
+    - yugabyted_join=${COMPOSE_PROJECT_NAME}-yb-1
+    - yugabyted_cloud_location=${COMPOSE_PROJECT_NAME}.yb.az
+    - tserver_flags=yb_enable_read_committed_isolation=true
+   deploy:
+    replicas: 3
+    restart_policy:
+     condition: on-failure
+   ports:
+   - "7000-7009:7000"
+   - "9000-9009:9000"
+   - "5430-5439:5433"
+   - "15430-15439:15433"
