@@ -1,0 +1,4 @@
+tasks:
+  - init: |
+    docker compose up -d --scale yb=3
+    docker compose logs psql
