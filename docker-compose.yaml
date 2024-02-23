@@ -25,3 +25,47 @@ services:
    yb:
     condition: service_healthy
 
+ sqlpad:
+  image: sqlpad/sqlpad:5
+  ports:
+          - '8080:3000'
+  depends_on:
+   yb:
+    condition: service_healthy
+  volumes:
+          - /var/tmp/sqlpad:/var/lib/sqlpad
+  environment:
+          SQLPAD_AUTH_DISABLED: true
+          SQLPAD_ADMIN: 'admin'
+          SQLPAD_ADMIN_PASSWORD: 'admin'
+          SQLPAD_APP_LOG_LEVEL: debug
+          SQLPAD_WEB_LOG_LEVEL: warn
+          SQLPAD_SEED_DATA_PATH: /etc/sqlpad/seed-data
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-1__name: ${COMPOSE_PROJECT_NAME}-yb-1
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-1__driver: postgres
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-1__host: ${COMPOSE_PROJECT_NAME}-yb-1
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-1__port: 5433
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-1__database: yugabyte
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-1__username: yugabyte
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-1__password: yugabyte
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-1__multiStatementTransactionEnabled: 'true'
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-1__idleTimeoutSeconds: 86400
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-2__name: ${COMPOSE_PROJECT_NAME}-yb-2
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-2__driver: postgres
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-2__host: ${COMPOSE_PROJECT_NAME}-yb-2
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-2__port: 5433
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-2__database: yugabyte
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-2__username: yugabyte
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-2__password: yugabyte
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-2__multiStatementTransactionEnabled: 'true'
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-2__idleTimeoutSeconds: 86400
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-3__name: ${COMPOSE_PROJECT_NAME}-yb-3
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-3__driver: postgres
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-3__host: ${COMPOSE_PROJECT_NAME}-yb-3
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-3__port: 5433
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-3__database: yugabyte
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-3__username: yugabyte
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-3__password: yugabyte
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-3__multiStatementTransactionEnabled: 'true'
+          SQLPAD_CONNECTIONS__${COMPOSE_PROJECT_NAME}-yb-3__idleTimeoutSeconds: 86400
+
