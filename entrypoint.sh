@@ -12,5 +12,6 @@ else
   yugabyted_args="--join=$yugabyted_join $yugabyted_args"
  fi
 fi
+sleep $( host $(hostname -i) | cut -c1 ) # try to not get all at the same time
 yugabyted_args="$yugabyted_args --cloud_location=$yugabyted_cloud_location"
 yugabyted start --background=false $yugabyted_args --tserver_flags=$tserver_flags
